@@ -1,0 +1,12 @@
+1001|10001|2018-11-12 11:11:11|0|too much BS
+1002|10002|2018-12-03 11:11:11|1|Loved it
+1003|10003|2018-12-05 11:11:11|2|Class
+1004|10004|2019-01-22 11:11:11|3|too bad
+1005|10005|2019-02-22 11:11:11|4|average
+1006|10006|2019-03-22 11:11:11|5|what can I expect from Hollywood? 
+1007|10007|2019-04-23 11:11:11|4|Charlie Sheen would be a great fit
+1008|10008|2019-05-23 11:11:11|5|When will be the next one be released?
+
+1009|10009|2019-06-30 11:11:11|2|More than 7 days
+1010|10007|2019-01-22 11:11:11|0|I didn't see the movie
+1004|10004|2019-01-23 11:11:11|3|CANT review it twice
