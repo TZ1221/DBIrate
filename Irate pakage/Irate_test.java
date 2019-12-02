@@ -275,23 +275,23 @@ public class Irate_test {
 	            
 	            
 	            String date="2019-02-26";
-	            String Giftwinner=Functions.freeGift(conn,date);
+	            String Giftwinner=Functions.freeItem(conn,date);
 	            assertEquals(Giftwinner,"Brad");
 	            
 	            
 	            String date2="2019-01-24";
-	            String Giftwinner2=Functions.freeGift(conn,date2);
+	            String Giftwinner2=Functions.freeItem(conn,date2);
 	            assertEquals(Giftwinner2,"Roberts");
 	            
 	            
 	            String date3="2015-01-31";
-	            String Giftwinner3=Functions.freeGift(conn,date3);
+	            String Giftwinner3=Functions.freeItem(conn,date3);
 	            assertEquals(Giftwinner3,"no winner");
 	            
 	                      
 	            String date4="2018-12-04";
 	            String Ticketwinner4=Functions.freeTicket(conn,date4);
-	            assertEquals(Ticketwinner4,"Roberts");
+	            assertEquals(Ticketwinner4,"Roberts");                  
 	            
 	            
 	            String date5="2014-12-04";

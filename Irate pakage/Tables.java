@@ -33,8 +33,8 @@ public class Tables {
 
         // procedures created by this program
         String storedFunctions[] = {
-        		"isEmail", 
-        		"freeGift", 
+        		"Validate_Email", 
+        		"freeItem", 
         		"freeTicket"
         };
 
@@ -83,8 +83,8 @@ public class Tables {
 
 			// function 1
 			// create the isEmail function
-            String create_isEmail = 
-            		"CREATE function isEmail ("
+            String create_Validate_Email = 
+            		"CREATE function Validate_Email ("
                     + " Email varchar(64)"
                     + " ) RETURNS BOOLEAN "
                     + " PARAMETER STYLE JAVA "
@@ -92,15 +92,15 @@ public class Tables {
                     + " DETERMINISTIC "
                     + " NO SQL "
                     + " EXTERNAL NAME "
-                    + " 'Functions.isEmail'";
-            stmt.executeUpdate(create_isEmail);
-            System.out.println("Created function isEmail()");
+                    + " 'Functions.Validate_Email'";
+            stmt.executeUpdate(create_Validate_Email);
+            System.out.println("Created function Validate_Email()");
 
 
             // function 2
             // create the freeGift function
-            String create_freeGift = 
-            		"CREATE function freeGift ("
+            String create_freeItem = 
+            		"CREATE function freeItem ("
                     + " date TIMESTAMP"
                     + " ) RETURNS VARCHAR(64) "
                     + " PARAMETER STYLE JAVA "
@@ -108,9 +108,9 @@ public class Tables {
                     + " DETERMINISTIC "
                     + " NO SQL "
                     + " EXTERNAL NAME "
-                    + " 'Functions.freeGift'";
-            stmt.executeUpdate(create_freeGift);
-            System.out.println("Created function freeGift()");
+                    + " 'Functions.freeItem'";
+            stmt.executeUpdate(create_freeItem);
+            System.out.println("Created function freeItem()");
 
             // function 3
             // create the freeTicket
@@ -136,7 +136,7 @@ public class Tables {
                     + " email varchar(64) NOT NULL,"
                     + " join_date TIMESTAMP NOT NULL,"
                     + " PRIMARY KEY (customer_id),"
-                    + " check (isEmail(email))"
+                    + " check (Validate_Email(email))"
                     + ")";
             stmt.executeUpdate(createTable_Customer);
             System.out.println("Created table Customer");
