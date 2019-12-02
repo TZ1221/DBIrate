@@ -87,7 +87,7 @@ public class Irate_test {
 	                PreparedStatement insertRow_Attendance = conn.prepareStatement(
 	                        "insert into Attendance(customer_id, movie_id, attendance_date) values(?, ?, ?)");
 	                PreparedStatement insertRow_Endorsement = conn.prepareStatement(
-	                        "insert into Endorsement(review_id, endorser_id, endorse_date) values(?, ?, ?)");
+	                        "insert into Endorsement(review_id, customer_id, endorse_date) values(?, ?, ?)");
 
 	        ) {
 	            System.out.println("Connected to " + dbName);
@@ -184,7 +184,7 @@ public class Irate_test {
 						assertEquals(email,"Paul@gmail.com");
 					}
 					
-					System.out.printf("Id: %d Name: %s Email: %s Date: %s\n", customer_id, customer_name, email,date);
+					System.out.printf("Name is %s Id is %d  Email is %s Date: %s\n",  customer_name,customer_id, email,date);
 	
 				}
 				tc.close();
@@ -259,20 +259,20 @@ public class Irate_test {
 				ResultSet te = stmt.executeQuery("select * from Endorsement");
 				while (te.next()) {
 					int review_id = te.getInt(1);
-					int endorser_id = te.getInt(2);
+					int customer_id= te.getInt(2);
 					Timestamp endorse_date = te.getTimestamp(3);
 					
 					if(review_id ==100006 ) {
-						assertEquals(endorser_id,1006);		
+						assertEquals(customer_id,1006);		
 					}
 					
-					System.out.printf("Review id is %d Endorser id is: %s endorsement date is : %s\n", review_id, endorser_id, endorse_date);
+					System.out.printf("Review id is %d Endorser id is: %s endorsement date is : %s\n", review_id,customer_id, endorse_date);
 			
 				}
 				te.close();
 	            
 	            
-	            
+			    System.out.println("\n------------------------\n");
 	            
 	            String date="2019-02-26";
 	            String Giftwinner=Functions.freeItem(conn,date);

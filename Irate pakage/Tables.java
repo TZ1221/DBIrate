@@ -190,11 +190,11 @@ public class Tables {
             String createTable_Endorsement =
                     "CREATE table Endorsement ("
                     + " review_id INT NOT NULL,"
-                    + " endorser_id INT NOT NULL,"
+                    + " customer_id INT NOT NULL,"
                     + " endorse_date TIMESTAMP NOT NULL,"
-                    + " PRIMARY KEY (review_id, endorser_id, endorse_date),"
+                    + " PRIMARY KEY (review_id, customer_id, endorse_date),"
                     + " FOREIGN KEY (review_id) REFERENCES Review (review_id) on delete cascade ,"
-                    + " FOREIGN KEY (endorser_id) REFERENCES Customer (customer_id) on delete cascade "
+                    + " FOREIGN KEY (customer_id) REFERENCES Customer (customer_id) on delete cascade "
                     + ")";
             stmt.executeUpdate(createTable_Endorsement);
             System.out.println("Created table Endorsement");
@@ -250,7 +250,7 @@ public class Tables {
                     + " REFERENCING new as insertedRow"
                     + " FOR EACH ROW MODE DB2SQL"
                     + " DELETE from Endorsement WHERE review_id = insertedRow.review_id"
-                    + " AND endorser_id = insertedRow.endorser_id"
+                    + " AND customer_id = insertedRow.customer_id"
                     + " AND endorse_date = insertedRow.endorse_date"
                     + " AND timestamp(insertedRow.endorse_date) < (select timestamp(review_date)"
                     + " FROM Review WHERE Review.review_id = insertedRow.review_id)";
@@ -266,10 +266,10 @@ public class Tables {
                     + " REFERENCING new as insertedRow"
                     + " FOR EACH ROW MODE DB2SQL"
                     + " DELETE from Endorsement where review_id = insertedRow.review_id"
-                    + " AND endorser_id = insertedRow.endorser_id"
+                    + " AND customer_id = insertedRow.customer_id"
                     + " AND endorse_date = insertedRow.endorse_date"
                     + " AND review_id = (SELECT review_id from Review"
-                    + " WHERE Review.customer_id = insertedRow.endorser_id"
+                    + " WHERE Review.customer_id = insertedRow.customer_id"
                     + " AND insertedRow.review_id = Review.review_id)";
             stmt.executeUpdate(createTrigger_endorse_limit_by_customer);
             System.out.println("Created review_limit trigger for Review by Customer");
@@ -283,12 +283,12 @@ public class Tables {
 					+ " referencing new as insertedRow"
 					+ " FOR EACH ROW MODE DB2SQL"
 					+ " DELETE from Endorsement where review_id = insertedRow.review_id"
-					+ " AND endorser_id = insertedRow.endorser_id"
+					+ " AND customer_id = insertedRow.customer_id"
 					+ " AND endorse_date = insertedRow.endorse_date"
 					+ " AND {fn TIMESTAMPDIFF(SQL_TSI_DAY, TIMESTAMP(insertedRow.endorse_date), (select max(TIMESTAMP(endorse_date)) as mostRecentDate"
 					+ " FROM Endorsement LEFT JOIN Review ON Endorsement.review_id = Review.review_id"
 					+ " WHERE TIMESTAMP(Endorsement.endorse_date) < TIMESTAMP(insertedRow.endorse_date)"
-					+ " AND Endorsement.endorser_id = insertedRow.endorser_id"
+					+ " AND Endorsement.customer_id = insertedRow.customer_id"
 					+ " AND Review.movie_id = (select movie_id from Review WHERE review_id = insertedRow.review_id)) )} = 0";
             stmt.executeUpdate(createTrigger_endorse_limit_by_oneDay);
             System.out.println("Created review_limit trigger for Review by oneDay");

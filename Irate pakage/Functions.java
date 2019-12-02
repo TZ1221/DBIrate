@@ -39,7 +39,7 @@ public class Functions {
             Timestamp end = Timestamp.valueOf(date + " 23:59:59");
             try {
                 String q = "select customer_Name from Customer INNER JOIN Endorsement ON " +
-                        "Endorsement.endorser_id = Customer.customer_id WHERE timestamp(Endorsement.endorse_date) BETWEEN (?) AND (?)";
+                        "Endorsement.customer_id = Customer.customer_id WHERE timestamp(Endorsement.endorse_date) BETWEEN (?) AND (?)";
                 PreparedStatement invoke_freeGift = conn.prepareStatement(q);
                 invoke_freeGift.setTimestamp(1, start);
                 invoke_freeGift.setTimestamp(2, end);
