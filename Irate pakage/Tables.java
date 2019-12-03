@@ -34,7 +34,7 @@ public class Tables {
         // procedures created by this program
         String storedFunctions[] = {
         		"Validate_Email", 
-        		"freeItem", 
+        		"freeGift", 
         		"freeTicket"
         };
 
@@ -82,48 +82,42 @@ public class Tables {
 			}
 
 			// function 1
-			// create the isEmail function
+			// create the Validate_Email function
             String create_Validate_Email = 
-            		"CREATE function Validate_Email ("
-                    + " Email varchar(64)"
-                    + " ) RETURNS BOOLEAN "
-                    + " PARAMETER STYLE JAVA "
-                    + " LANGUAGE JAVA "
-                    + " DETERMINISTIC "
-                    + " NO SQL "
-                    + " EXTERNAL NAME "
-                    + " 'Functions.Validate_Email'";
+            		"CREATE function Validate_Email (Email varchar(64))"
+                    + " RETURNS BOOLEAN"
+                    + " PARAMETER STYLE JAVA"
+                    + " LANGUAGE JAVA"
+                    + " DETERMINISTIC"
+                    + " NO SQL"
+                    + " EXTERNAL NAME 'Functions.Validate_Email'";
             stmt.executeUpdate(create_Validate_Email);
             System.out.println("Created function Validate_Email()");
 
 
             // function 2
             // create the freeGift function
-            String create_freeItem = 
-            		"CREATE function freeItem ("
-                    + " date TIMESTAMP"
-                    + " ) RETURNS VARCHAR(64) "
-                    + " PARAMETER STYLE JAVA "
-                    + " LANGUAGE JAVA "
-                    + " DETERMINISTIC "
-                    + " NO SQL "
-                    + " EXTERNAL NAME "
-                    + " 'Functions.freeItem'";
-            stmt.executeUpdate(create_freeItem);
-            System.out.println("Created function freeItem()");
+            String create_freeGift = 
+            		"CREATE function freeGift (date TIMESTAMP)"
+            		+ " RETURNS VARCHAR(64)"
+                    + " PARAMETER STYLE JAVA"
+                    + " LANGUAGE JAVA"
+                    + " DETERMINISTIC"
+                    + " NO SQL"
+                    + " EXTERNAL NAME 'Functions.freeGift'";
+            stmt.executeUpdate(create_freeGift);
+            System.out.println("Created function freeGift()");
 
             // function 3
             // create the freeTicket
             String create_freeTicket = 
-            		"CREATE function freeTicket ("
-                    + " date TIMESTAMP"
-                    + " ) RETURNS VARCHAR(64) "
-                    + " PARAMETER STYLE JAVA "
-                    + " LANGUAGE JAVA "
-                    + " DETERMINISTIC "
-                    + " NO SQL "
-                    + " EXTERNAL NAME "
-                    + " 'Functions.freeTicket'";
+            		"CREATE function freeTicket (date TIMESTAMP)"
+            		+ " RETURNS VARCHAR(64)"
+                    + " PARAMETER STYLE JAVA"
+                    + " LANGUAGE JAVA"
+                    + " DETERMINISTIC"
+                    + " NO SQL"
+                    + " EXTERNAL NAME 'Functions.freeTicket'";
             stmt.executeUpdate(create_freeTicket);
             System.out.println("Created function freeTicket()");
 
@@ -280,9 +274,9 @@ public class Tables {
             String createTrigger_endorse_limit_by_oneDay =
             		"CREATE trigger endorse_limit_by_oneDay"
 					+ " AFTER insert ON Endorsement"
-					+ " referencing new as insertedRow"
+					+ " REFERENCING new as insertedRow"
 					+ " FOR EACH ROW MODE DB2SQL"
-					+ " DELETE from Endorsement where review_id = insertedRow.review_id"
+					+ " DELETE from Endorsement WHERE review_id = insertedRow.review_id"
 					+ " AND customer_id = insertedRow.customer_id"
 					+ " AND endorse_date = insertedRow.endorse_date"
 					+ " AND {fn TIMESTAMPDIFF(SQL_TSI_DAY, TIMESTAMP(insertedRow.endorse_date), (select max(TIMESTAMP(endorse_date)) as mostRecentDate"
@@ -296,15 +290,14 @@ public class Tables {
 
         } catch (SQLException e) {
             System.out.println("Error message: " + e.getMessage() + "\n");
-            //e.printStackTrace();
         }
     }
 
 
     public static void main(String[] args) {
-
-        System.out.println("*********** Start building iRate Db Schema ***********");
-        createTables();
-        System.out.println("*********** Finish building iRate Db Schema ***********");
+    	// main function
+    	System.out.println("Starting the project...");
+    	createTables();
+		System.out.println("Closing the project..");
     }
 }
